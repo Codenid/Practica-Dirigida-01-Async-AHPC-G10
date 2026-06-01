@@ -23,45 +23,45 @@ La distancia euclidiana realiza por cada dimensión:
 
 Entonces:
 
-\[
+$$
 3 \text{ FLOPs por dimensión}
-\]
+$$
 
 Como:
 
-\[
+$$
 d=64
-\]
+$$
 
 se obtiene:
 
-\[
+$$
 FLOPs_{comparacion}=3 \times 64 = 192
-\]
+$$
 
 El trabajo total del algoritmo es:
 
-\[
+$$
 Ts = Q \times N \times 192
-\]
+$$
 
 ---
 
 ## Para Q = 1000
 
-\[
+$$
 Ts = 1000 \times 100000 \times 192
-\]
+$$
 
-\[
+$$
 Ts = 19.2 \times 10^9
-\]
+$$
 
 Resultado:
 
-\[
+$$
 Ts \approx 19.2 \text{ GFLOPs}
-\]
+$$
 
 ### Análisis
 
@@ -71,19 +71,19 @@ Para un valor pequeño de consultas, el trabajo computacional todavía es maneja
 
 ## Para Q = 1000000
 
-\[
+$$
 Ts = 1000000 \times 100000 \times 192
-\]
+$$
 
-\[
+$$
 Ts = 1.92 \times 10^{13}
-\]
+$$
 
 Resultado:
 
-\[
+$$
 Ts \approx 19.2 \text{ TFLOPs}
-\]
+$$
 
 ### Análisis
 
@@ -95,9 +95,9 @@ Cuando Q aumenta, el trabajo crece de forma lineal y rápidamente se vuelve muy 
 
 Datos:
 
-\[
+$$
 SM = 108
-\]
+$$
 
 Tabla proporcionada:
 
@@ -110,61 +110,61 @@ Tabla proporcionada:
 
 Fórmulas:
 
-\[
+$$
 residentBlocks = SM \times blocksPerSM
-\]
+$$
 
-\[
+$$
 residentThreads = residentBlocks \times TPB
-\]
+$$
 
 ---
 
 ## TPB = 128
 
-\[
+$$
 residentBlocks = 108 \times 16 = 1728
-\]
+$$
 
-\[
+$$
 residentThreads = 1728 \times 128 = 221184
-\]
+$$
 
 ---
 
 ## TPB = 256
 
-\[
+$$
 residentBlocks = 108 \times 8 = 864
-\]
+$$
 
-\[
+$$
 residentThreads = 864 \times 256 = 221184
-\]
+$$
 
 ---
 
 ## TPB = 512
 
-\[
+$$
 residentBlocks = 108 \times 4 = 432
-\]
+$$
 
-\[
+$$
 residentThreads = 432 \times 512 = 221184
-\]
+$$
 
 ---
 
 ## TPB = 1024
 
-\[
+$$
 residentBlocks = 108 \times 2 = 216
-\]
+$$
 
-\[
+$$
 residentThreads = 216 \times 1024 = 221184
-\]
+$$
 
 ---
 
@@ -172,9 +172,9 @@ residentThreads = 216 \times 1024 = 221184
 
 En todos los casos se llega al mismo máximo teórico de hilos residentes:
 
-\[
+$$
 221184
-\]
+$$
 
 Sin embargo, esto no significa que todos tengan el mismo rendimiento.
 
@@ -188,25 +188,25 @@ Por eso, aumentar el tamaño del bloque no garantiza automáticamente mejores ti
 
 Para:
 
-\[
+$$
 TPB = 256
-\]
+$$
 
 Se tiene:
 
-\[
+$$
 residentBlocks = 864
-\]
+$$
 
 Fórmulas:
 
-\[
+$$
 blocksPerGrid = \left\lceil \frac{Q}{256} \right\rceil
-\]
+$$
 
-\[
+$$
 waves = \left\lceil \frac{blocksPerGrid}{864} \right\rceil
-\]
+$$
 
 ---
 
@@ -238,9 +238,9 @@ En los casos donde el número de bloques supera la capacidad residente, el traba
 
 El tiempo total de GPU se divide en:
 
-\[
+$$
 T_{GPU,total}=T_{H2D}+T_{kernel}+T_{D2H}
-\]
+$$
 
 donde:
 
@@ -262,37 +262,37 @@ Por eso, al medir GPU no basta con medir solo el kernel.
 
 La intensidad aritmética se define como:
 
-\[
+$$
 AI = \frac{FLOPs}{Bytes}
-\]
+$$
 
 El problema indica:
 
-\[
+$$
 Bytes = 8QNd
-\]
+$$
 
 y:
 
-\[
+$$
 FLOPs = 192QN
-\]
+$$
 
 Entonces:
 
-\[
+$$
 AI = \frac{192QN}{8QNd}
-\]
+$$
 
 Simplificando:
 
-\[
+$$
 AI = \frac{192}{8 \times 64}
-\]
+$$
 
-\[
+$$
 AI = 0.375
-\]
+$$
 
 ---
 
@@ -308,9 +308,9 @@ Por esta razón, KNN suele ser memory-bound. Es decir, el rendimiento depende m�
 
 La energía consumida por una ejecución se calcula mediante:
 
-\[
+$$
 E = P \times T
-\]
+$$
 
 donde:
 
@@ -320,9 +320,9 @@ donde:
 
 También se calcula la energía por consulta:
 
-\[
+$$
 E_{consulta} = \frac{E}{Q}
-\]
+$$
 
 ## Metodología
 
@@ -406,9 +406,9 @@ La reducción del tiempo es visible para todos los valores de Q evaluados, lo qu
 
 El tiempo por consulta se calcula mediante:
 
-\[
+$$
 T/Q=\frac{Tiempo}{Q}
-\]
+$$
 
 ![Tiempo por consulta CPU](cpu_tq_vs_q.png)
 
